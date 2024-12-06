@@ -13,4 +13,8 @@ export class Posts{
     get createdTime(){
         return this.createdAt.toLocaleDateString('en-us', {day: "2-digit", month:"numeric", year:"2-digit"})
     }
+
+    get likeCount(){
+        return this.likes.length
+    }
 }

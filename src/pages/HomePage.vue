@@ -10,6 +10,7 @@ onMounted(() => {
 })
 
 const posts = computed(() => AppState.Posts)
+const account = computed(() => AppState.account)
 
 async function getPosts() {
   try {
@@ -24,8 +25,8 @@ async function getPosts() {
 
 <template>
 
-  <section class="row" v-for="post in posts" v-bind:key="post.id">
-    <div class="p-3 shadow-lg mt-2">
+  <section class="row mb-2" v-for="post in posts" v-bind:key="post.id">
+    <div class="p-3 shadow-lg mt-3">
       <div class="row justify-content-between">
         <div class="col-6">
           <div class="d-flex justify-content-start p-2">
@@ -37,13 +38,20 @@ async function getPosts() {
           </div>
         </div>
         <div class="col-6 text-end">
-          <div>
-            <i selectable type="button" class="mdi mdi-menu mx-3"></i>
+          <div v-if="account.id == post.creator">
+            <i selectable type="button" class="mdi mdi-menu mx-3 fs-3"></i>
           </div>
         </div>
       </div>
-      <div>
+      <div class="p-2">
         <p>{{ post.body }}</p>
+      </div>
+      <div>
+        <img v-if="post?.imgUrl" :src="post.imgUrl" :alt="post.body" id="postBodyImage">
+      </div>
+      <div class="text-end p-2 mx-3 mt-2 d-flex justify-content-end align-items-center">
+        <i class="mdi mdi-heart-outline fs-3 mx-2 align-self-center"></i>
+        <p class="align-self-center mb-0 fs-5">{{ post.likeCount }}</p>
       </div>
       <div>
 
@@ -60,5 +68,12 @@ async function getPosts() {
   border-radius: 50%;
   object-position: center;
   object-fit: cover;
+}
+
+#postBodyImage {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

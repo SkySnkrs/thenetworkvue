@@ -18,25 +18,27 @@ async function logout() {
 
 <template>
     <section class="row d-flex">
-        <div v-if="account != null" class="col-md-2 d-flex flex-column" id="AccountSection">
+        <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
             <div class="rounded p-2">
                 <img :src="account?.picture" alt="" class="pfp-Image">
                 <h4 class="fw-bold">{{ account?.name }}</h4>
                 <hr>
             </div>
-            <div class="row justify-content-around d-flex mt-auto mb-2">
-                <router-link class="col-md-9 btn btn-dark text-light mx-1" :to="{ name: 'Account' }">
-                    Manage Account
-                </router-link>
-                <button @click="logout" class="col-md-2 btn btn-danger mx-1"><i class="mdi mdi-logout"></i></button>
+            <div class="row justify-content-around d-flex mt-auto p-2">
+                <div class="rounded p-2" id="buttonContainer">
+                    <router-link class="col-md-9 btn rounded-0 btnColor " :to="{ name: 'Account' }">
+                        Account
+                    </router-link>
+                    <button @click="logout" class="col-md-3 btn btn-danger "><i class="mdi mdi-logout"></i></button>
+                </div>
             </div>
         </div>
         <div :class="accountClass" id="navBar">
             <div class="row">
                 <Navbar />
             </div>
-            <div class="row">
-                <div class="col-10">
+            <div class="row justify-content-around">
+                <div class="col-9 p-4 mx-2">
                     <RouterView />
                 </div>
                 <div class="col-2" id="AdsSection">
@@ -49,13 +51,26 @@ async function logout() {
 
 
 <style lang="scss" scoped>
+#buttonContainer {
+    background-color: lightgrey;
+}
+
+.mdi-logout {
+    color: black;
+}
+
+.btnColor {
+    background-color: lightgrey;
+    color: black;
+}
+
 #AccountSection {
     min-height: 100dvh;
     text-align: center;
     justify-content: center;
     align-content: center;
     height: 100%;
-    background-color: white
+    background-color: white;
 }
 
 #AdsSection {
