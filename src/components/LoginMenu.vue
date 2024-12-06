@@ -26,7 +26,7 @@ async function logout() {
             </div>
             <div class="row justify-content-around d-flex mt-auto p-2">
                 <div class="rounded p-2" id="buttonContainer">
-                    <router-link class="col-md-9 btn rounded-0 btnColor " :to="{ name: 'Account' }">
+                    <router-link class="col-md-9 btn  btnColor " :to="{ name: 'Account' }">
                         Account
                     </router-link>
                     <button @click="logout" class="col-md-3 btn btn-danger "><i class="mdi mdi-logout"></i></button>
@@ -52,7 +52,7 @@ async function logout() {
 
 <style lang="scss" scoped>
 #buttonContainer {
-    background-color: lightgrey;
+    background-color: white;
 }
 
 .mdi-logout {
@@ -60,6 +60,13 @@ async function logout() {
 }
 
 .btnColor {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.btnColor:hover {
     background-color: lightgrey;
     color: black;
 }
