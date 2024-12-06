@@ -1,12 +1,14 @@
 <script setup>
+import LoginMenu from './components/LoginMenu.vue';
+
 
 
 
 </script>
 
 <template>
-  <main>
-    <RouterView />
+  <main class="container-fluid">
+    <LoginMenu />
   </main>
 </template>
 
