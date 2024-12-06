@@ -20,7 +20,9 @@ async function logout() {
     <section class="row d-flex">
         <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
             <div class="rounded p-2">
-                <img :src="account?.picture" alt="" class="pfp-Image">
+                <router-link :to="{ name: 'Account' }">
+                    <img :src="account?.picture" alt="" class="pfp-Image">
+                </router-link>
                 <h4 class="fw-bold">{{ account?.name }}</h4>
                 <hr>
             </div>

@@ -26,6 +26,16 @@ async function likePost(id) {
     }
 }
 
+async function unlikePost(id) {
+    try {
+        await postService.likePost(id)
+        Pop.success('You Have Un-liked The Post')
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 </script>
 
 
@@ -54,10 +64,12 @@ async function likePost(id) {
         <div>
             <img v-if="post?.imgUrl" :src="post.imgUrl" :alt="post.body" id="postBodyImage">
         </div>
-        <div class="text-end p-2 mx-3 mt-2 d-flex justify-content-end align-items-center">
-            <i v-if="likedPost" class="mdi mdi-heart fs-3 mx-2 align-self-center">
+        <div v-if="account != null"
+            class="text-end p-2 mx-3 mt-2 d-flex justify-content-end align-items-center likeContent">
+            <i v-if="likedPost" @click="unlikePost(post?.id)" class="mdi mdi-heart fs-3 mx-2 align-self-center">
             </i>
-            <i selectable @click="likePost(post.id)" v-else class="mdi mdi-heart-outline fs-3 mx-2 align-self-center">
+            <i selectable @click="likePost(post?.id)" v-else
+                class="mdi mdi-heart-outline fs-3 mx-2 align-self-center likeContent">
             </i>
             <p class="align-self-center mb-0 fs-5">{{ post?.likeCount }}</p>
         </div>
@@ -79,5 +91,9 @@ async function likePost(id) {
     width: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+.likeContent {
+    cursor: pointer;
 }
 </style>
