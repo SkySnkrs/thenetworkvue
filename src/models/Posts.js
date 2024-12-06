@@ -9,4 +9,8 @@ export class Posts{
         this.likes = data.likes;
         this.updatedAt = new Date(data.updatedAt)
     }
+
+    get createdTime(){
+        return this.createdAt.toLocaleDateString('en-us', {day: "2-digit", month:"numeric", year:"2-digit"})
+    }
 }
