@@ -36,6 +36,19 @@ async function unlikePost(id) {
     }
 }
 
+async function deletePost() {
+    try {
+        const message = `Are you sure you want to delete your post?`
+        const confirmed = await Pop.confirm(message)
+        if (!confirmed) { return }
+        const postId = prop.post.id
+        await postService.deletePost(postId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 </script>
 
 
@@ -52,8 +65,15 @@ async function unlikePost(id) {
                 </div>
             </div>
             <div class="col-6 text-end">
-                <div v-if="account?.id == post.creator">
-                    <i selectable type="button" class="mdi mdi-menu mx-3 fs-3"></i>
+                <div v-if="account?.id == post.creator._id">
+                    <div class="dropend">
+                        <i selectable type="button" class="mdi mdi-menu mx-3 fs-3" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-center" @click="deletePost">Delete <i
+                                        class="mdi mdi-trash-can"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
