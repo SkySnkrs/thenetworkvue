@@ -8,8 +8,7 @@ defineProps({
 
 
 <template>
-    <div class="justify-content-center d-block" style="width: 100%;">
-        <p>{{ ad.title }}</p>
+    <div class="justify-content-center d-block mt-2" style="width: 100%;">
         <div>
             <img :src="ad.tall" alt="">
         </div>

@@ -41,7 +41,7 @@ async function saveChanges() {
 </script>
 
 <template>
-  <div class="about">
+  <div class="about background inputBox">
     <div v-if="account">
       <div class="text-center mt-1 p-3"
         :style="account?.coverImg ? { backgroundImage: `url(${account.coverImg})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px' } : {}">
@@ -146,6 +146,19 @@ async function saveChanges() {
 <style scoped lang="scss">
 img {
   max-width: 100px;
+}
+
+.background {
+  background: rgb(54, 25, 94);
+  background: linear-gradient(90deg, rgba(54, 25, 94, 1) 0%, rgba(137, 91, 209, 1) 19%, rgba(144, 87, 245, 1) 34%, rgba(120, 72, 201, 1) 50%, rgba(81, 5, 196, 1) 73%, rgba(144, 120, 186, 1) 90%);
+  border-radius: 8px;
+  padding: 1em;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+  text-shadow: 1px 1px black;
 }
 
 .inputBox {

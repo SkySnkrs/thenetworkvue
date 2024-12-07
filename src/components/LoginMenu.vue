@@ -37,15 +37,42 @@ const adsData = computed(() => AppState.Ads)
 <template>
     <section class="row d-flex rounded ">
         <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
-            <div class="rounded p-2">
-                <router-link :to="{ name: 'Account' }">
-                    <img :src="account?.picture" alt="" class="pfp-Image">
-                </router-link>
-                <h4 class="fw-bold">{{ account?.name }}</h4>
+            <div class="rounded d-block justify-items-center p-2">
+
+                <div class="imageBackground d-flex align-content-center">
+                    <router-link :to="{ name: 'Account' }">
+                        <img :src="account?.picture" alt="" class="pfp-Image">
+                    </router-link>
+                </div>
+                <h5 class="fw-bold text-start colorText mt-2">{{ account?.name }}</h5>
+                <p class="text-start colorText" v-if="account?.class != null">{{ account?.class }}</p>
                 <hr>
             </div>
+            <div class="text-start p-2 mt-3 colorText">
+                <div class="d-flex align-items-center">
+                    <p v-if="account?.github != ''">
+                        <i class="mdi mdi-github fs-2"></i>
+                        <a class="mx-3" :href="account?.github" target="_blank">Click Here</a>
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <p v-if="account?.linkedin != ''">
+                        <i class="mdi mdi-linkedin fs-2"></i>
+                        <a class="mx-3" :href="account?.linkedin" target="_blank">Click Here</a>
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <p v-if="account?.resume != ''">
+                        <i class="mdi mdi-text-box fs-2"></i>
+                        <a class="mx-3" :href="account?.resume" target="_blank">Click Here</a>
+                    </p>
+                </div>
+            </div>
+
             <div class="row justify-content-around d-flex mt-auto p-2">
-                <div class="rounded p-2 manageAccount" id="buttonContainer">
+                <div class="rounded p-2" id="buttonContainer">
                     <router-link class="col-md-9 btn  btnColor " :to="{ name: 'Account' }">
                         Account
                     </router-link>
@@ -73,22 +100,47 @@ const adsData = computed(() => AppState.Ads)
 
 
 <style lang="scss" scoped>
-h4 {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(90deg,
-            rgba(54, 25, 94, 1) 0%,
-            rgba(137, 91, 209, 1) 19%,
-            rgba(144, 87, 245, 1) 34%,
-            rgba(120, 72, 201, 1) 50%,
-            rgba(81, 5, 196, 1) 73%,
-            rgba(144, 120, 186, 1) 90%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+h5 {
+    color: white;
+    text-shadow: 1px 1px black;
 }
 
-#buttonContainer {
-    background-color: white;
+
+div>p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+
+a {
+    color: white;
+    text-decoration: underline;
+    text-shadow: 1px 1px black;
+}
+
+.colorText {
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.imageBackground {
+    align-items: center;
+    background-color: #8d58e5;
+    height: 6em;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    margin: 10px auto;
+    opacity: 0.8;
 }
 
 .mdi-logout {
@@ -99,11 +151,10 @@ h4 {
     background-color: white;
     color: black;
     cursor: pointer;
-    border: 1px solid black;
 }
 
 .btnColor:hover {
-    background-color: lightgrey;
+    background-color: rgb(60, 64, 68);
     color: black;
 }
 
@@ -113,7 +164,7 @@ h4 {
     justify-content: center;
     align-content: center;
     height: 100%;
-    background-color: white;
+    background-color: #36195e;
 }
 
 #AdsSection {
@@ -122,7 +173,7 @@ h4 {
     justify-content: center;
     align-content: center;
     height: 100%;
-    background-color: white
+    background-color: #121212;
 }
 
 
@@ -131,10 +182,5 @@ h4 {
     height: 5em;
     aspect-ratio: 1/1;
     margin: 0.75em;
-}
-
-.manageAccount {
-    background: rgb(54, 25, 94);
-    background: linear-gradient(90deg, rgba(54, 25, 94, 1) 0%, rgba(137, 91, 209, 1) 19%, rgba(144, 87, 245, 1) 34%, rgba(120, 72, 201, 1) 50%, rgba(81, 5, 196, 1) 73%, rgba(144, 120, 186, 1) 90%);
 }
 </style>

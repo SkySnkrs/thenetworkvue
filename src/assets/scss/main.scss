@@ -1,22 +1,35 @@
 @import "./_variables.scss";
 @import "./_utilities.scss";
 @import "./loaders.scss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
 
 body {
   overscroll-behavior: none;
+  font-family: 'Roboto', sans-serif;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: white;
+  background-color: #121212;
+  font-family: 'Roboto', sans-serif;
 }
 
 main {
   flex-grow: 1;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
 }
