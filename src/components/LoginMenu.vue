@@ -1,8 +1,11 @@
 <script setup>
 import { AppState } from '@/AppState';
 import Navbar from '@/components/Navbar.vue';
+import { adsService } from '@/services/AdsService';
 import { AuthService } from '@/services/AuthService';
-import { computed } from 'vue';
+import Pop from '@/utils/Pop';
+import { computed, onMounted } from 'vue';
+import Ad from './Ad.vue';
 
 const account = computed(() => AppState.account)
 
@@ -11,6 +14,21 @@ const accountClass = computed(() => (account.value ? 'col-10' : 'col-12'))
 async function logout() {
     AuthService.logout()
 }
+
+onMounted(() => {
+    getAds()
+})
+
+async function getAds() {
+    try {
+        await adsService.getAds()
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
+const adsData = computed(() => AppState.Ads)
 
 
 </script>
@@ -43,8 +61,10 @@ async function logout() {
                 <div class="col-9 p-4 mx-2">
                     <RouterView />
                 </div>
-                <div class="col-2" id="AdsSection">
-                    Ads
+                <div class="col-2 p-4 mx-2 mt-1" id="AdsSection">
+                    <div v-for="ad in adsData" v-bind:key="ad.title">
+                        <Ad :ad="ad" />
+                    </div>
                 </div>
             </div>
         </div>

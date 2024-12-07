@@ -9,10 +9,11 @@ const prop = defineProps({
     post: { type: Posts, required: true }
 })
 
+
 const account = computed(() => AppState.account)
 
 const likedPost = computed(() => {
-    const me = prop.post.likeIds.find(likeid => AppState.account?.id == likeid)
+    const me = prop.post.likeIds.find(likeId => AppState.account?.id == likeId)
     return me
 })
 

@@ -11,6 +11,8 @@ onMounted(() => {
   getPosts()
 })
 
+const posts = computed(() => AppState.Posts)
+
 async function getPosts() {
   try {
     await postService.getPosts()
@@ -22,7 +24,6 @@ async function getPosts() {
 
 
 const account = computed(() => AppState.account)
-const posts = computed(() => AppState.Posts)
 
 </script>
 

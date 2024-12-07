@@ -11,10 +11,16 @@ class PostService {
     logger.log('[Successfully Deleted]', response.data)
   }
   async createPost(value) {
-    const response = await api.post('/api/posts', value)
-    const post = new Posts(response.data)
-    AppState.Posts.push(post)
-    logger.log('[Successfully Posted]', response.data)
+    try {
+        const response = await api.post('/api/posts', value);
+        const post = new Posts(response.data);
+
+        AppState.Posts = [post, ...AppState.Posts];
+
+        logger.log('[Successfully Posted]', response.data);
+    } catch (error) {
+        logger.error('[Failed to Create Post]', error);
+    }
 }
 
   async likePost(id) {
