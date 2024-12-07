@@ -32,7 +32,8 @@ nav {
 }
 
 h2 {
-  color: whitesmoke;
+  color: white;
+  text-shadow: 1px 1px black;
 }
 
 a:hover {

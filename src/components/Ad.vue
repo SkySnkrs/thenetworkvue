@@ -8,17 +8,22 @@ defineProps({
 
 
 <template>
-    <div class="justify-content-center d-block">
+    <div class="justify-content-center d-block" style="width: 100%;">
         <p>{{ ad.title }}</p>
-        <img :src="ad.tall" alt="">
+        <div>
+            <img :src="ad.tall" alt="">
+        </div>
     </div>
 </template>
 
-
 <style lang="scss" scoped>
+div {
+    width: 100%;
+}
+
 img {
-    height: 20px;
-    width: 20px;
+    height: 500px;
+    width: 100%;
     object-fit: cover;
     object-position: center;
 }

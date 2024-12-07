@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import NextPage from '@/components/NextPage.vue';
 import PostCard from '@/components/PostCard.vue';
 import PostForm from '@/components/PostForm.vue';
 import { postService } from '@/services/PostService';
@@ -13,6 +14,8 @@ onMounted(() => {
 
 const posts = computed(() => AppState.Posts)
 
+
+
 async function getPosts() {
   try {
     await postService.getPosts()
@@ -21,7 +24,6 @@ async function getPosts() {
     Pop.error(error);
   }
 }
-
 
 const account = computed(() => AppState.account)
 
@@ -34,7 +36,12 @@ const account = computed(() => AppState.account)
   <section class="row mb-2" v-for="post in posts" v-bind:key="post.id">
     <PostCard :post="post" />
   </section>
-
+  <NextPage />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+button {
+  background-color: white;
+  color: black;
+}
+</style>

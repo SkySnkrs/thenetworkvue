@@ -24,24 +24,42 @@ async function createPost() {
         Pop.error(error);
     }
 }
+
+const useImage = ref(false)
+
+
 </script>
 
 
 <template>
     <div class="shadow-lg mt-3 p-4 rounded" id="postForm">
+        <h3 class="text-light mb-3 inputBox">Post Your Thoughts</h3>
         <form @submit.prevent="createPost" class="row g-3">
-            <div class="col-md-6">
-                <label for="inputImgUrl" class="form-label inputBox p-1 rounded">Image URL (Optional)</label>
-                <input v-model="editableFormData.imgUrl" type="url" class="form-control" id="inputImgUrl"
-                    placeholder="Enter image URL (optional)">
-            </div>
             <div class="col-md-12">
                 <label for="inputBody" class="form-label inputBox p-1 rounded">Body</label>
                 <textarea v-model="editableFormData.body" class="form-control" id="inputBody" required maxlength="500"
-                    placeholder="Write something..."></textarea>
+                    placeholder="Write something...">
+                </textarea>
             </div>
-            <div class="col-12 text-end">
-                <button type="submit" class="btn btn-white">Post!</button>
+            <div class="col-md-6">
+
+
+                <div v-if="useImage" class="mt-2">
+                    <label for="inputImgUrl" class="form-label inputBox p-1 rounded">Image URL</label>
+                    <input v-model="editableFormData.imgUrl" type="url" class="form-control" id="inputImgUrl"
+                        placeholder="Enter image URL">
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+                <div class="form-check">
+                    <input v-model="useImage" type="checkbox" class="form-check-input" id="useImageCheckbox">
+                    <label class="form-check-label inputBox" for="useImageCheckbox">
+                        Use An Image
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-white">Post!</button>
+                </div>
             </div>
         </form>
     </div>
@@ -55,7 +73,7 @@ async function createPost() {
 }
 
 .inputBox {
-    background-color: white;
-    color: black;
+    color: white;
+    text-shadow: 1px 1px black;
 }
 </style>

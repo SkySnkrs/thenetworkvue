@@ -58,10 +58,10 @@ const adsData = computed(() => AppState.Ads)
                 <Navbar />
             </div>
             <div class="row justify-content-around">
-                <div class="col-9 p-4 mx-2">
+                <div class="col-8 p-4 mx-2">
                     <RouterView />
                 </div>
-                <div class="col-2 p-4 mx-2 mt-1" id="AdsSection">
+                <div class="col-3 p-4 mx-2 mt-1" id="AdsSection">
                     <div v-for="ad in adsData" v-bind:key="ad.title">
                         <Ad :ad="ad" />
                     </div>
@@ -73,6 +73,20 @@ const adsData = computed(() => AppState.Ads)
 
 
 <style lang="scss" scoped>
+h4 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg,
+            rgba(54, 25, 94, 1) 0%,
+            rgba(137, 91, 209, 1) 19%,
+            rgba(144, 87, 245, 1) 34%,
+            rgba(120, 72, 201, 1) 50%,
+            rgba(81, 5, 196, 1) 73%,
+            rgba(144, 120, 186, 1) 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 #buttonContainer {
     background-color: white;
 }
