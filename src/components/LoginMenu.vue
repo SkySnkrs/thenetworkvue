@@ -17,7 +17,7 @@ async function logout() {
 
 
 <template>
-    <section class="row d-flex">
+    <section class="row d-flex rounded ">
         <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
             <div class="rounded p-2">
                 <router-link :to="{ name: 'Account' }">
@@ -27,7 +27,7 @@ async function logout() {
                 <hr>
             </div>
             <div class="row justify-content-around d-flex mt-auto p-2">
-                <div class="rounded p-2" id="buttonContainer">
+                <div class="rounded p-2 manageAccount" id="buttonContainer">
                     <router-link class="col-md-9 btn  btnColor " :to="{ name: 'Account' }">
                         Account
                     </router-link>

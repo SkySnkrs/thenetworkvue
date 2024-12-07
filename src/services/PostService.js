@@ -4,6 +4,12 @@ import { Posts } from "@/models/Posts.js"
 import { AppState } from "@/AppState.js"
 
 class PostService {
+  async createPost(value) {
+    const response = await api.post('/api/posts', value)
+    const post = new Posts(response.data)
+    AppState.Posts.push(post)
+    logger.log('[Successfully Posted]', response.data)
+}
 
   async likePost(id) {
     const response = await api.post(`/api/posts/${id}/like`)

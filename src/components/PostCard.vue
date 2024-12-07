@@ -40,7 +40,7 @@ async function unlikePost(id) {
 
 
 <template>
-    <div class="p-3 shadow-lg mt-3">
+    <div class=" rounded p-3 shadow-lg mt-3">
         <div class="row justify-content-between">
             <div class="col-6">
                 <div class="d-flex justify-content-start p-2">
