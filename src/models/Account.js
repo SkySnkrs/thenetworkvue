@@ -8,6 +8,7 @@ export class Account {
     this.graduated = data.graduated;
     this.resume = data.resume;
     this.class = data.class;
-    this.coverImg = data.coverImg
+    this.coverImg = data.coverImg;
+    this.github = data.github
   }
 }
