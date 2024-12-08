@@ -2,7 +2,6 @@
 import { AppState } from '@/AppState';
 import Navbar from '@/components/Navbar.vue';
 import { adsService } from '@/services/AdsService';
-import { AuthService } from '@/services/AuthService';
 import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
 import Ad from './Ad.vue';
@@ -11,9 +10,7 @@ const account = computed(() => AppState.account)
 
 const accountClass = computed(() => (account.value ? 'col-10' : 'col-12'))
 
-async function logout() {
-    AuthService.logout()
-}
+
 
 onMounted(() => {
     getAds()
@@ -39,7 +36,7 @@ const adsData = computed(() => AppState.Ads)
         <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
             <div class="rounded d-block justify-items-center p-2">
 
-                <div class="imageBackground d-flex align-content-center">
+                <div v-if="account?.picture !== ''" class="imageBackground d-flex align-content-center">
                     <router-link :to="{ name: 'Account', query: { id: account?.id } }">
                         <img :src="account?.picture" alt="" class="pfp-Image">
                     </router-link>
@@ -49,34 +46,35 @@ const adsData = computed(() => AppState.Ads)
                 <hr>
             </div>
             <div class="text-start p-2 mt-3 colorText">
-                <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-center align-items-center">
                     <p v-if="account?.github != ''">
-                        <i class="mdi mdi-github fs-2"></i>
-                        <a class="mx-3" :href="account?.github" target="_blank">Click Here</a>
+                        <a class="mx-3 socialConnection" :href="account?.github" target="_blank">
+                            <i class="mdi mdi-github fs-2 socialConnection"></i><span class="mx-3">Github</span>
+                        </a>
                     </p>
                 </div>
 
-                <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-center align-items-center">
                     <p v-if="account?.linkedin != ''">
-                        <i class="mdi mdi-linkedin fs-2"></i>
-                        <a class="mx-3" :href="account?.linkedin" target="_blank">Click Here</a>
+                        <a class="mx-3 socialConnection" :href="account?.linkedin" target="_blank">
+                            <i class="mdi mdi-linkedin fs-2 socialConnection"></i><span class="mx-3">LinkedIn</span></a>
                     </p>
                 </div>
 
-                <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-center align-items-center">
                     <p v-if="account?.resume != ''">
-                        <i class="mdi mdi-text-box fs-2"></i>
-                        <a class="mx-3" :href="account?.resume" target="_blank">Click Here</a>
+                        <a class="mx-3 socialConnection" :href="account?.resume" target="_blank">
+                            <i class="mdi mdi-text-box fs-2 socialConnection"></i><span class="mx-3">Resume</span>
+                        </a>
                     </p>
                 </div>
             </div>
 
             <div class="row justify-content-around d-flex mt-auto p-2">
                 <div class="rounded p-2" id="buttonContainer">
-                    <router-link class="col-md-9 btn  btnColor " :to="{ name: 'Account' }">
-                        Account
+                    <router-link class="col-12 btn  btnColor " :to="{ name: 'Account' }">
+                        Manage Account
                     </router-link>
-                    <button @click="logout" class="col-md-3 btn btn-danger "><i class="mdi mdi-logout"></i></button>
                 </div>
             </div>
         </div>
@@ -105,6 +103,9 @@ h5 {
     text-shadow: 1px 1px black;
 }
 
+#buttonStyling {
+    text-decoration: none
+}
 
 div>p {
     display: flex;
@@ -115,9 +116,8 @@ div>p {
 }
 
 
-a {
-    color: white;
-    text-decoration: underline;
+.socialConnection {
+    color: #8d58e5;
     text-shadow: 1px 1px black;
 }
 
@@ -148,7 +148,7 @@ hr {
 }
 
 .btnColor {
-    background-color: white;
+    background-color: #8d58e5;
     color: black;
     cursor: pointer;
 }

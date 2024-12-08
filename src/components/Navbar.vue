@@ -1,10 +1,14 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Login from './Login.vue';
 import { postService } from '../services/PostService';
 import Pop from '../utils/Pop';
 import { useRouter } from 'vue-router';
+import { AuthService } from '@/services/AuthService';
+import { AppState } from '../AppState';
 
+
+const account = computed(() => AppState.account)
 const router = useRouter();
 
 const editableSearchData = ref({
@@ -25,6 +29,10 @@ async function searchFunction() {
     Pop.error(error);
   }
 }
+
+async function logout() {
+  AuthService.logout()
+}
 </script>
 
 <template>
@@ -43,10 +51,15 @@ async function searchFunction() {
       </router-link>
     </div>
     <div class="col-4">
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div v-if="account?.id == null" class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto"></ul>
         <Login />
       </div>
+      <div v-else class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto"></ul>
+        <button @click="logout" id="buttonStyling" class="btn btn-danger "><i class="mdi mdi-logout"></i></button>
+      </div>
+
     </div>
   </nav>
 </template>
@@ -94,7 +107,7 @@ nav {
 }
 
 h2 {
-  color: white;
+  color: #121212;
   text-shadow: 1px 1px black;
 }
 

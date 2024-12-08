@@ -33,7 +33,7 @@ const useImage = ref(false)
 
 <template>
     <div class="shadow-lg mt-3 p-4 rounded" id="postForm">
-        <h3 class="text-light mb-3 inputBox">Post Your Thoughts</h3>
+        <h3 class=" mb-3">Post Your Thoughts</h3>
         <form @submit.prevent="createPost" class="row g-3">
             <div class="col-md-12">
                 <label for="inputBody" class="form-label inputBox p-1 rounded">Body</label>
@@ -58,7 +58,7 @@ const useImage = ref(false)
                     </label>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-white">Post!</button>
+                    <button type="submit" class="btn">Post!</button>
                 </div>
             </div>
         </form>
@@ -74,6 +74,25 @@ const useImage = ref(false)
 
 .inputBox {
     color: white;
+    text-shadow: 1px 1px black;
+}
+
+.btn {
+    background-color: #8d58e5;
+}
+
+input,
+textarea {
+    background-color: #b599e0;
+    border: 1px solid #121212;
+}
+
+label {
+    color: #b599e0;
+}
+
+h3 {
+    color: #121212;
     text-shadow: 1px 1px black;
 }
 </style>
