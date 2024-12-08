@@ -1,20 +1,33 @@
 <script setup>
 import { AppState } from '@/AppState';
-import { logger } from '@/utils/Logger';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import PostCard from '../components/PostCard.vue';
+import NextPage from '../components/NextPage.vue';
+import { postService } from '@/services/PostService';
+
+
+onMounted(() => {
+    initializeActiveProfile()
+})
 
 
 const account = computed(() => AppState.activeProfile)
-
+const posts = computed(() => AppState.Posts)
 const message = 'User Has Not Graduated'
 
-logger.log(account)
+
+async function initializeActiveProfile() {
+    const savedProfileId = localStorage.getItem("activeProfileId");
+    if (savedProfileId) {
+        await postService.setActiveProfile(savedProfileId);
+    }
+}
 </script>
 
 
 <template>
-    <div class="about background inputBox">
-        <div v-if="account">
+    <div class="about inputBox">
+        <div v-if="account" class="background">
             <div class="text-center mt-1 p-3"
                 :style="account?.coverImg ? { backgroundImage: `url(${account.coverImg})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px', maxHeight: '220px', maxWidth: '630px' } : {}">
 
@@ -31,10 +44,10 @@ logger.log(account)
             <div class="row p-3 mt-1 d-flex">
                 <div class="col-md-6">
                     <h4>Socials Connected:</h4>
-                    <p v-if="account.linkedin != ''">Linked In: <a :href="account.linkedin" target="_blank">Click
+                    <p v-if="account.linkedin != ''">Linked In: <a :href="account?.linkedin" target="_blank">Click
                             Here</a></p>
                     <p v-else>Please Update Your Linked In</p>
-                    <p v-if="account.github != ''">Git Hub: <a :href="account.github" target="_blank">Click Here</a>
+                    <p v-if="account.github != ''">Git Hub: <a :href="account?.github" target="_blank">Click Here</a>
                     </p>
                     <p v-else>Please Update Your Git Hub</p>
                 </div>
@@ -45,7 +58,7 @@ logger.log(account)
                             }}</p>
                         <p v-if="account?.class != ''">Class: {{ account?.class }}</p>
                         <p v-else>Please Update Your Class</p>
-                        <p v-if="account?.resume != ''">Resume: <a :href="account.resume" target="_blank">Click
+                        <p v-if="account?.resume != ''">Resume: <a :href="account?.resume" target="_blank">Click
                                 Here</a>
                         </p>
                         <p v-else>Please Provide A Resume!</p>
@@ -56,6 +69,11 @@ logger.log(account)
         <div v-else>
             <h1>Loading... <i class="mdi mdi-loading mdi-spin"></i></h1>
         </div>
+        <h3 v-if="posts.length != 0"></h3>
+        <section class="row mt-4  mb-2" v-for="post in posts" v-bind:key="post.id">
+            <PostCard :post="post" />
+        </section>
+        <NextPage />
     </div>
 </template>
 

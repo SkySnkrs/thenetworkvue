@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { authGuard } from '@bcwdev/auth0provider-client'
+import { AppState } from './AppState.js';
 
 function loadPage(page) {
   return () => import(`./pages/${page}.vue`)
@@ -37,4 +38,14 @@ export const router = createRouter({
   scrollBehavior() {
     return { top: 0 }
   }
+});
+
+router.beforeEach((to, from, next) => {
+  if (from.name === 'Profile' && to.name !== 'Profile') {
+    AppState.Posts = [];
+    AppState.totalPages = null;
+    AppState.activeProfile = null;
+    localStorage.removeItem('activeProfileId');
+  }
+  next();
 })

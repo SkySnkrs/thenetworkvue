@@ -40,7 +40,7 @@ const adsData = computed(() => AppState.Ads)
             <div class="rounded d-block justify-items-center p-2">
 
                 <div class="imageBackground d-flex align-content-center">
-                    <router-link :to="{ name: 'Account' }">
+                    <router-link :to="{ name: 'Account', query: { id: account?.id } }">
                         <img :src="account?.picture" alt="" class="pfp-Image">
                     </router-link>
                 </div>

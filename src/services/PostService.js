@@ -3,6 +3,7 @@ import { api } from "./AxiosService.js"
 import { Posts } from "@/models/Posts.js"
 import { AppState } from "@/AppState.js"
 import { TotalPages } from "@/models/TotalPages.js"
+import { ActiveProfile } from "@/models/ActiveProfile.js"
 
 class PostService {
   async goToNewPosts(link) {
@@ -58,6 +59,32 @@ class PostService {
   }
 
 
+  
+  async setActiveProfile(profileId) {
+    AppState.Posts = [];
+    AppState.activeProfile = null;
+    AppState.totalPages = null;
+  
+    try {
+      const [postsResponse, profileResponse] = await Promise.all([
+        api.get(`/api/profiles/${profileId}/posts`),
+        api.get(`/api/profiles/${profileId}`)
+      ]);
+  
+      logger.log("[Get Posts]", postsResponse.data.posts);
+      logger.log("[Get Profile Data]", profileResponse.data);
+  
+      AppState.activeProfile = new ActiveProfile(profileResponse.data);
+      AppState.Posts = postsResponse.data.posts.map(postPojo => new Posts(postPojo));
+      AppState.totalPages = new TotalPages(postsResponse.data);
+  
+      localStorage.setItem("activeProfileId", profileId);
+    } catch (error) {
+      logger.error("Error setting active profile:", error);
+    }
+  }
+
+  
 }
 
 export const postService = new PostService()

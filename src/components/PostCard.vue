@@ -2,7 +2,6 @@
 import { AppState } from '@/AppState';
 import { Posts } from '@/models/Posts';
 import { postService } from '@/services/PostService';
-import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed } from 'vue';
 
@@ -51,9 +50,13 @@ async function deletePost() {
     }
 }
 
-function setActiveProfile() {
-    AppState.activeProfile = prop.post?.creator
-    logger.log(AppState.activeProfile)
+async function setActiveProfile(profileID) {
+    try {
+        await postService.setActiveProfile(profileID)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
 }
 
 </script>
@@ -64,7 +67,7 @@ function setActiveProfile() {
         <div class="row justify-content-between">
             <div class="col-6">
                 <div class="d-flex justify-content-start p-2">
-                    <router-link @click="setActiveProfile" :to="{ name: 'Profile' }">
+                    <router-link @click="setActiveProfile(post?.creator.id)" :to="{ name: 'Profile' }">
                         <img :src="post?.creator.picture" alt="" id="CreatorImage">
                     </router-link>
                     <div class="d-block align-self-center text-start mx-3">
@@ -91,7 +94,7 @@ function setActiveProfile() {
 
         </div>
         <div>
-            <img v-if="post?.imgUrl" :src="post.imgUrl" :alt="post.body" id="postBodyImage">
+            <img v-if="post?.imgUrl" :src="post.imgUrl" :alt="post.body" id="postBodyImage" class="rounded">
         </div>
         <div v-if="account != null"
             class="text-end p-2 mx-3 mt-2 d-flex justify-content-end align-items-center likeContent">
