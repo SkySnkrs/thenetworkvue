@@ -33,9 +33,14 @@ const account = computed(() => AppState.account)
   <div class="row" v-if="account != null">
     <PostForm />
   </div>
-  <section class="row mb-2" v-for="post in posts" v-bind:key="post.id">
-    <PostCard :post="post" />
-  </section>
+  <div v-if="posts.length">
+    <section class="row mb-2" v-for="post in posts" :key="post.id">
+      <PostCard :post="post" />
+    </section>
+  </div>
+  <div v-else class="mt-4 text-light">
+    <h1>Loading Posts... <i class="mdi mdi-loading mdi-spin"></i></h1>
+  </div>
   <NextPage />
 </template>
 

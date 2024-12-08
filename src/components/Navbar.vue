@@ -1,31 +1,93 @@
 <script setup>
+import { ref } from 'vue';
 import Login from './Login.vue';
+import { postService } from '../services/PostService';
+import Pop from '../utils/Pop';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
+const editableSearchData = ref({
+  searchQuery: ''
+});
 
+async function searchFunction() {
+  try {
+    await postService.getPostsByQuery(editableSearchData.value.searchQuery);
+
+    router.push({
+      name: 'Search',
+      query: { search: editableSearchData.value.searchQuery }
+    });
+
+    editableSearchData.value.searchQuery = '';
+  } catch (error) {
+    Pop.error(error);
+  }
+}
 </script>
 
 <template>
   <nav class="navbar navbar-expand-sm px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <h2>The Network</h2>
+    <div class="d-flex col-4">
+      <form @submit.prevent="searchFunction" class="search-bar rounded justify-items-center">
+        <input v-model="editableSearchData.searchQuery" type="text" placeholder="Search..." />
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+    <div class="col-4">
+      <router-link class="navbar-brand mx-auto" :to="{ name: 'Home' }">
+        <div class="d-flex flex-column align-items-center">
+          <h2>The Network</h2>
+        </div>
+      </router-link>
+    </div>
+    <div class="col-4">
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto"></ul>
+        <Login />
       </div>
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto"></ul>
-      <!-- LOGIN COMPONENT HERE -->
-
-      <Login />
     </div>
   </nav>
 </template>
 
+
 <style scoped>
+.search-bar input::placeholder {
+  color: rgb(67, 75, 84);
+  opacity: 1;
+}
+
+.navbar .search-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.navbar .search-bar input {
+  background: none;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.navbar .search-bar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.navbar .navbar-collapse {
+  justify-content: flex-end;
+}
+
 nav {
   background: rgb(54, 25, 94);
   background: linear-gradient(90deg, rgba(54, 25, 94, 1) 0%, rgba(137, 91, 209, 1) 19%, rgba(144, 87, 245, 1) 34%, rgba(120, 72, 201, 1) 50%, rgba(81, 5, 196, 1) 73%, rgba(144, 120, 186, 1) 90%);

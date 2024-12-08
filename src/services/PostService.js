@@ -4,6 +4,7 @@ import { Posts } from "@/models/Posts.js"
 import { AppState } from "@/AppState.js"
 import { TotalPages } from "@/models/TotalPages.js"
 import { ActiveProfile } from "@/models/ActiveProfile.js"
+import { Profile } from "@/models/Profile.js"
 
 class PostService {
   async goToNewPosts(link) {
@@ -82,6 +83,26 @@ class PostService {
     } catch (error) {
       logger.error("Error setting active profile:", error);
     }
+  }
+
+  async getPostsByQuery(searchQuery){
+    
+    AppState.Posts = [];
+    AppState.totalPages = null;
+    AppState.Profile = []
+    const [postsResponse, profileResponse] = await Promise.all([
+      api.get(`/api/posts?query=${searchQuery}`),
+      api.get(`/api/profiles?query=${searchQuery}`)
+    ]);
+    const mapPosts = postsResponse.data.posts.map(postPojo => new Posts(postPojo))
+    const profile = profileResponse.data.map(profilePojo => new Profile(profilePojo))
+    const pageData = new TotalPages(postsResponse.data)
+    AppState.Posts = mapPosts
+    AppState.totalPages = pageData
+    AppState.Profile = profile
+    logger.log('[Got Posts By Search Query]', postsResponse.data)
+    logger.log('[Got Profiles By Search Query]', profileResponse.data)
+
   }
 
   
