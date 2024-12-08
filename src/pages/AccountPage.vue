@@ -16,6 +16,7 @@ const formData = ref({
   class: '',
   coverImg: '',
   github: '',
+  bio: ''
 });
 
 
@@ -51,6 +52,10 @@ async function saveChanges() {
           <p class="mt-2 inputBox">User's Email:</p>
           <p class="inputBox">{{ account.email }}</p>
         </div>
+      </div>
+      <div v-if="account?.bio != ''" class="row mt-3 p-2 inputBox">
+        <h4>Bio:</h4>
+        <p>{{ account?.bio }}</p>
       </div>
       <div class="row p-3 mt-1 d-flex">
         <div class="col-md-6">
@@ -130,6 +135,10 @@ async function saveChanges() {
                 <div class="col-6 mb-3">
                   <label for="github" class="form-label">GitHub</label>
                   <input v-model="formData.github" type="url" class="form-control" id="github" />
+                </div>
+                <div class="col-12 mb-3">
+                  <label for="bio" class="form-label">Bio</label>
+                  <input v-model="formData.bio" type="url" class="form-control" id="bio" />
                 </div>
               </div>
             </form>

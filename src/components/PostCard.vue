@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState';
 import { Posts } from '@/models/Posts';
 import { postService } from '@/services/PostService';
+import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed } from 'vue';
 
@@ -50,6 +51,11 @@ async function deletePost() {
     }
 }
 
+function setActiveProfile() {
+    AppState.activeProfile = prop.post?.creator
+    logger.log(AppState.activeProfile)
+}
+
 </script>
 
 
@@ -58,7 +64,9 @@ async function deletePost() {
         <div class="row justify-content-between">
             <div class="col-6">
                 <div class="d-flex justify-content-start p-2">
-                    <img :src="post?.creator.picture" alt="" id="CreatorImage">
+                    <router-link @click="setActiveProfile" :to="{ name: 'Profile' }">
+                        <img :src="post?.creator.picture" alt="" id="CreatorImage">
+                    </router-link>
                     <div class="d-block align-self-center text-start mx-3">
                         <h6>{{ post?.creator.name }}</h6>
                         <p>{{ post?.createdTime }}</p>

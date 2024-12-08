@@ -10,5 +10,6 @@ export class Account {
     this.class = data.class;
     this.coverImg = data.coverImg;
     this.github = data.github
+    this.bio = data.bio
   }
 }
