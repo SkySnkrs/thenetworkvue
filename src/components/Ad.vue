@@ -21,7 +21,7 @@ div {
 }
 
 img {
-    height: 300px;
+    height: 500px;
     width: 100%;
     object-fit: cover;
     object-position: center;
