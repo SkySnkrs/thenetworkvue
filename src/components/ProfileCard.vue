@@ -33,6 +33,9 @@ async function setActiveProfile(profileID) {
                     </div>
                 </div>
             </div>
+            <div class="col-6 text-end">
+                <p>Email: {{ profile?.email }}</p>
+            </div>
         </div>
         <div class="p-2">
             <p>{{ profile?.bio }}</p>
