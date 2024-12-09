@@ -3,7 +3,7 @@ import { AppState } from '@/AppState';
 import { computed, onMounted } from 'vue';
 import PostCard from '../components/PostCard.vue';
 import NextPage from '../components/NextPage.vue';
-import { postService } from '@/services/PostService';
+import { postService } from '../services/PostService';
 
 
 onMounted(() => {
