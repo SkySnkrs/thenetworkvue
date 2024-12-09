@@ -36,21 +36,21 @@ async function logout() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm px-3">
-    <div class="d-flex col-4">
+  <nav class="navbar navbar-expand-sm px-3 ">
+    <div class="d-flex col-lg-5 col-5 text-center">
       <form @submit.prevent="searchFunction" class="search-bar rounded justify-items-center">
         <input v-model="editableSearchData.searchQuery" type="text" placeholder="Search..." />
         <button type="submit">🔍</button>
       </form>
     </div>
-    <div class="col-4">
+    <div class="col-lg-5 col-6 text-center">
       <router-link class="navbar-brand mx-auto" :to="{ name: 'Home' }">
         <div class="d-flex flex-column align-items-center">
           <h2>The Network</h2>
         </div>
       </router-link>
     </div>
-    <div class="col-4">
+    <div class="col-lg-2 col-1">
       <div v-if="account?.id == null" class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto"></ul>
         <Login />

@@ -33,7 +33,7 @@ const adsData = computed(() => AppState.Ads)
 
 <template>
     <section class="row d-flex rounded ">
-        <div v-if="account != null" class="col-md-2 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
+        <div v-if="account != null" class="col-md-2 col-sm-6 d-flex flex-column shadow-lg p-3 ml-2" id="AccountSection">
             <div class="rounded d-block justify-items-center p-2">
 
                 <div v-if="account?.picture !== ''" class="imageBackground d-flex align-content-center">
@@ -79,7 +79,7 @@ const adsData = computed(() => AppState.Ads)
             </div>
         </div>
         <div :class="accountClass" id="navBar">
-            <div class="row">
+            <div class="row justify-content-center">
                 <Navbar />
             </div>
             <div class="row justify-content-around">

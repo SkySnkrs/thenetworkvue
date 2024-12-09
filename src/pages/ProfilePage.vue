@@ -29,7 +29,7 @@ async function initializeActiveProfile() {
     <div class="about inputBox">
         <div v-if="account" class="background">
             <div class="text-center mt-1 p-3"
-                :style="account?.coverImg ? { backgroundImage: `url(${account.coverImg})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px', maxHeight: '220px', maxWidth: '630px' } : {}">
+                :style="account?.coverImg ? { backgroundImage: `url(${account.coverImg})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px', maxHeight: '100%', maxWidth: '100%' } : {}">
 
                 <img class="rounded profileImage" :src="account.picture" alt="User Picture" />
                 <div class="d-block text-center">

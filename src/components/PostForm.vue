@@ -1,7 +1,7 @@
 <script setup>
-import { postService } from '@/services/PostService';
-import { logger } from '@/utils/Logger';
-import Pop from '@/utils/Pop';
+import { postService } from '../services/PostService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 import { ref } from 'vue';
 
 
